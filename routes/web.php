@@ -14,9 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
-Auth::routes();
+Auth::routes([
+    'register' => false, // Registration Routes...
+    'reset' => false, // Password Reset Routes...
+    'verify' => false, //
+]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/option', [App\Http\Controllers\HomeController::class, 'option']);
+Route::get('/account', [App\Http\Controllers\HomeController::class, 'account']);
+
+Route::post('/export', [App\Http\Controllers\HomeController::class, 'export']);
+Route::post('/schedule', [App\Http\Controllers\HomeController::class, 'schedule']);
+
+Route::post('/post', [App\Http\Controllers\NoLoginController::class, 'post']);
+Route::get('/download', [App\Http\Controllers\NoLoginController::class, 'download']);

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DataAbsen extends Migration
+class Option extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class DataAbsen extends Migration
      */
     public function up()
     {
-        Schema::create('data', function (Blueprint $table) {
+        Schema::create('option', function (Blueprint $table) {
             $table->id();
-            $table->string('nama', 255);
-            $table->string('nik', 20);
-            $table->string('waktu', 50);
+            $table->string('name', 255);
+            $table->time('time', $precision = 0);
         });
     }
 
