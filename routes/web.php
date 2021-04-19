@@ -29,6 +29,7 @@ Route::get('/account', [App\Http\Controllers\HomeController::class, 'account']);
 
 Route::post('/export', [App\Http\Controllers\HomeController::class, 'export']);
 Route::post('/schedule', [App\Http\Controllers\HomeController::class, 'schedule']);
+Route::post('/password', [App\Http\Controllers\HomeController::class, 'password']);
 
 Route::post('/post', [App\Http\Controllers\NoLoginController::class, 'post']);
 Route::get('/download', [App\Http\Controllers\NoLoginController::class, 'download']);

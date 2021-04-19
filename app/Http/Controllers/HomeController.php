@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+
+
+use Auth;
+Use Redirect;
 
 class HomeController extends Controller
 {
@@ -40,6 +45,38 @@ class HomeController extends Controller
             'time' => $request->time
         ]);
         return redirect('/option');
+    }
+
+    public function account(){
+        return view('account');
+    }
+
+    public function password(Request $request){
+        $s1 = Auth::user();
+        if (Hash::check($request->oldpass, $s1->password)) {
+            if ($request->password == $request->confirmpass) {
+                DB::table('users')->where('username', $s1->username)->update(
+                    [
+                        'password' => bcrypt($request->password),
+                    ]
+                );
+                $errors = ['oldpass' => ['Password Berhasil Dirubah']]; 
+                return Redirect::back()->withErrors($errors);
+            }else {
+                $errors = ['oldpass' => ['Password Tidak Sama']]; 
+                return Redirect::back()->withErrors($errors);
+            }
+        }
+        else {
+            $errors = ['oldpass' => ['Password Salah']]; 
+            return Redirect::back()->withErrors($errors);
+        }
+        if(strcmp($request->oldpass, $user->password) == 0){
+            $errors = ['username' => ['Password Tidak Boleh Sama Dengan Password Saat Ini']]; 
+            return Redirect::back()->withErrors($errors);
+                }
+        else {
+        }
     }
 
     public function schedule(Request $request){
