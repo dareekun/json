@@ -33,3 +33,4 @@ Route::post('/password', [App\Http\Controllers\HomeController::class, 'password'
 
 Route::post('/post', [App\Http\Controllers\NoLoginController::class, 'post']);
 Route::get('/download', [App\Http\Controllers\NoLoginController::class, 'download']);
+Route::get('/schedule', [App\Http\Controllers\NoLoginController::class, 'schedule']);

@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
@@ -24,6 +25,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $time = DB::table('option')->where('name', 'time')->select('time')->value('time');
+        $schedule->call(function () {
+            return redirect('/schedule');
+        })->daily()->at($time);
         // $schedule->command('inspire')->hourly();
     }
 
