@@ -29,7 +29,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $record = DB::table('data')->get();
+        $start = DB::table('option')->where('name', 'start')->select('time')->value('time');
+		$stop  = DB::table('option')->where('name', 'stop')->select('time')->value('time');
+		$today   = date('Y-m-d H:i:s', strtotime($stop));
+		$yesterday = date('Y-m-d H:i:s', strtotime($start.' - 1 days'));
+		$record = DB::table('data')->whereDate('waktu', '>', $yesterday)->whereDate('waktu', '<', $today)->get();
         return view('home', ['record' => $record, 'i' => 1]);
     }
 
